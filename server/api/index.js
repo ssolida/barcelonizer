@@ -20,7 +20,7 @@ const blacklistSchema = new mongoose.Schema({
     sarcasticTitle: String,
     reasonToAvoid: String
 });
-const Blacklist = mongoose.model('Blacklist', blacklistSchema);
+const Blacklist = mongoose.model('blacklist', blacklistSchema);
 
 // API : Récupérer tous les lieux
 app.get('/api/blacklist', async (req, res) => {
