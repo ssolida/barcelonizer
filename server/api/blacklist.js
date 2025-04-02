@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 const Blacklist = require('./models/Blacklist');
 
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log("✅ MongoDB connecté"))
-    .catch((err) => console.error("❌ MongoDB erreur :", err));
-
 module.exports = async (req, res) => {
     try {
+        if (mongoose.connection.readyState !== 1) {
+            await mongoose.connect(process.env.MONGO_URI);
+        }
+
         const all = await Blacklist.find();
         res.status(200).json(all);
     } catch (err) {
-        res.status(500).json({ error: "Erreur serveur", details: err.message });
+        res.status(500).json({ error: "Mongo error", details: err.message });
     }
 };
