@@ -1,0 +1,10 @@
+{
+  "name": "barcelonizer",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "cd server && node api/index.js",
+    "dev:client": "cd client && npm start",
+    "dev:server": "cd server && node api/index.js",
+    "dev": "npm run dev:server & npm run dev:client"
+  }
+}
