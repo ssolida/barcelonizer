@@ -24,20 +24,24 @@ function App() {
 function Home() {
   const [places, setPlaces] = useState([]);
   useEffect(() => {
-    axios.get('http://localhost:5000/api/blacklist')
+    axios.get('http://localhost:5050/api/blacklist')
         .then(res => setPlaces(res.data.slice(0, 3)))
-        .catch(err => console.log(err));
+        .catch(err => console.log("Erreur lors de la récupération des données:", err));
   }, []);
 
   return (
       <div style={{ background: 'black', color: 'white', padding: '20px' }}>
         <h1>Barcelonizer : Où ne pas aller à Barcelone</h1>
-        {places.map(place => (
-            <div key={place._id}>
-              <h2 style={{ color: 'red' }}>{place.sarcasticTitle}</h2>
-              <p>{place.reasonToAvoid}</p>
-            </div>
-        ))}
+        {places.length > 0 ? (
+          places.map(place => (
+              <div key={place._id}>
+                <h2 style={{ color: 'red' }}>{place.sarcasticTitle || "Titre manquant"}</h2>
+                <p>{place.reasonToAvoid || "Raison manquante"}</p>
+              </div>
+          ))
+        ) : (
+          <p>Aucun endroit à afficher pour le moment.</p>
+        )}
       </div>
   );
 }
@@ -45,20 +49,24 @@ function Home() {
 function Blacklist() {
   const [places, setPlaces] = useState([]);
   useEffect(() => {
-    axios.get('/api/blacklist')
+    axios.get('http://localhost:5050/api/blacklist')
         .then(res => setPlaces(res.data))
-        .catch(err => console.log(err));
+        .catch(err => console.log("Erreur lors de la récupération des données:", err));
   }, []);
 
   return (
       <div style={{ background: 'black', color: 'white', padding: '20px' }}>
         <h1>Les flops à fuir</h1>
-        {places.map(place => (
-            <div key={place._id}>
-              <h2 style={{ color: 'red' }}>{place.sarcasticTitle}</h2>
-              <p>{place.reasonToAvoid}</p>
-            </div>
-        ))}
+        {places.length > 0 ? (
+          places.map(place => (
+              <div key={place._id}>
+                <h2 style={{ color: 'red' }}>{place.sarcasticTitle || "Titre manquant"}</h2>
+                <p>{place.reasonToAvoid || "Raison manquante"}</p>
+              </div>
+          ))
+        ) : (
+          <p>Aucun endroit à afficher pour le moment.</p>
+        )}
       </div>
   );
 }
