@@ -10,13 +10,13 @@ mongoose.connect(process.env.MONGO_URI)
     .catch(err => console.error("❌ MongoDB erreur :", err));
 
 // Test route
-app.get('/api/ping', (req, res) => {
+app.get('/ping', (req, res) => {
     res.json({ pong: true });
 });
 
 // Blacklist route
 const Blacklist = require('./models/Blacklist'); // adapte le chemin
-app.get('/api/blacklist', async (req, res) => {
+app.get('/blacklist', async (req, res) => {
     const all = await Blacklist.find();
     res.json(all);
 });
